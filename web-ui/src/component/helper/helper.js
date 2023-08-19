@@ -3,9 +3,21 @@ import axiosInstance from './axios-url'
 //Rename the axiosInstance As axios
 const axios = axiosInstance;
 
+//all Emp
 export async function getAllEmp(){
     try {
         const { data } = await axios.get(`/api/employee/`);
+        return {data};
+
+    } catch (error) {
+        return {error:"Email not matched", status:404}
+    }
+}
+
+//emp by id
+export async function getEmp(empId){
+    try {
+        const { data } = await axios.get(`/api/employee/${empId}`);
         return {data};
 
     } catch (error) {

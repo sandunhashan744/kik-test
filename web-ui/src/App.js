@@ -5,7 +5,7 @@ import Employee from "./component/Employee";
 function App() {
   return (
     <div>
-      {/* <Navbar/> */}
+      <Navbar/>
       <Employee />
       {/* <Footer/> */}
     </div>

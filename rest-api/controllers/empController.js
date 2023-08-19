@@ -41,6 +41,20 @@ export async function allEmp(req, res){
     }
 }
 
+//get Employee details
+export async function getEmp(req, res){
+
+    const {empId} = req.params;
+
+    try {
+        const emp = await employee.findOne({empId : empId })
+        res.send(emp);
+
+    } catch (error) {
+        res.status(404).send(error)
+    }
+}
+
 //update update
 export async function updateEmp(req, res){
 

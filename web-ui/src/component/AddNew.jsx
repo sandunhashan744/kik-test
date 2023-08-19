@@ -1,5 +1,4 @@
-import React from 'react'
-// import { Formik, Form, Field } from 'formik';
+import React,{useState} from 'react'
 import { useFormik } from 'formik';
 
 import { createEmp } from "./helper/helper"
@@ -11,14 +10,10 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
-
 import TextField from '@mui/material/TextField';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-// import FormControl from '@mui/material/FormControl';
-// import FormLabel from '@mui/material/FormLabel';
-// import Input from '@mui/material/Input';
 
 // import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -27,15 +22,13 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.css';
 
-
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
   
-
 const AddNew = () => {
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
     const handleClickOpen = () => {
       setOpen(true);
@@ -52,7 +45,6 @@ const AddNew = () => {
         { label: 'Manufacturing' },
     ]
 
-
     const {values, handleSubmit, handleChange} = useFormik({
       initialValues : {
         empId: '',
@@ -63,16 +55,12 @@ const AddNew = () => {
         dob: '',
       },
       onSubmit : async values => {  
-          // //console.log(values)
-          // createEmp(values)
-
           try {
             // Call the createEmp function to insert data
             const createEmpPromise = createEmp(values);
       
             createEmpPromise.then(() => {
               setOpen(false);
-
               Swal.fire({
                 title: 'Register Successfully',
                 text: 'You have been registered successfully.',
@@ -80,7 +68,6 @@ const AddNew = () => {
                 timer: 1500,
                 showConfirmButton: false,
               });
-              //navigate('/login');
             }).catch((error) => {
               const errMsg = JSON.stringify(error.error.error);
               Swal.fire({
@@ -88,7 +75,9 @@ const AddNew = () => {
                 text: errMsg,
                 icon: 'error',
               });
-            });
+            }).finally(()=>{
+              window.location.reload(); 
+            })
 
           } catch (error) {
             // Handle errors if needed
@@ -137,17 +126,7 @@ const AddNew = () => {
                   onChange={handleChange}
                   sx={{ width: '100%' , marginTop:'15px' }} 
                 />
-                {/* <Autocomplete
-                  name="department"
-                  //disablePortal
-                  value={values.department}
-                  onChange={handleChange}
-                  id="combo-box-demo"
-                  style={{ marginTop: '15px', marginBottom: '15px' }}
-                  options={departments}
-                  renderInput={(params) => <TextField {...params} label="Department" />}
-                /> */}
-
+                
                 <Autocomplete
                   name="department"
                   value={values.department}
@@ -179,6 +158,7 @@ const AddNew = () => {
                   label="Date of Birth"
                   value={values.dob}
                   onChange={handleChange}
+                  type='date'
                   sx={{ width: '100%', marginTop:'10px' }}
                 />
                 <DialogActions>

@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from 'react'
 import AddNew from './AddNew';
 
-import {getAllEmp, deleteEmp} from "./helper/helper"
+import {getAllEmp, deleteEmp, getEmp} from "./helper/helper"
 
 //table
 import DataTable from "react-data-table-component"
@@ -77,9 +77,12 @@ const Employee = () => {
 // EMPLOYEE EDIT
   const handleEdit = (row) => {
     // Implement edit logic using the row data
-    console.log('Edit:', row);
-    
+    const id = row.empId
+    const detEmp = getEmp(id);
+    console.log('Edit:', detEmp);
+    setOpen(true)
   };
+
 
   // EMPLOYEE DELETE
   const handleDelete = async (row) => {
@@ -133,6 +136,37 @@ const Employee = () => {
             fixedHeader
             pagination
             className='z-0' 
+            customStyles={{
+              table: {
+                style: {
+                  //backgroundColor: 'transparent', // Set the background color of the table to transparent
+                 // font:'white',
+                },
+              },
+              headRow: {
+                style: {
+                  //backgroundColor: '#1a202b', // Set the background color of the table header row to transparent
+                  //color: 'white',
+                  //fontWeight: 'bold',
+                  fontSize:'18px',
+                },
+              },
+              rows: {
+                style: {
+                  backgroundColor: 'transparent', // Set the background color of the table rows to transparent
+                 // color: 'white',
+                  fontSize:'16px',
+                },
+              },
+              pagination:{
+                style: {
+                  backgroundColor: 'transparent', // Set the background color of the table rows to transparent
+                 // color: 'white',
+                  fontSize:'16px',
+                  
+                },
+              },
+            }}
         />
         </>
     </div>
